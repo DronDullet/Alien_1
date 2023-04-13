@@ -30,6 +30,7 @@ class AlienInvasion:
             self.ship.update()
 
 
+
     def _create_fleet(self):
         """Создание флота вторжения."""
         # Создание пришельца и вычисление количества пришельцев в ряду
@@ -59,23 +60,28 @@ class AlienInvasion:
         self.aliens.add(alien)
 
     def _update_aliens(self):
-        """Обновляет позиции всех пришельцев во флоте."""
+        """
+        Проверяет, достиг ли флот края экрана,
+        с последующим обновлением позиций всех пришельцев во флоте.
+        """
         self._check_fleet_edges()
         self.aliens.update()
 
 
+
     def _check_fleet_edges(self):
         """Реагирует на достижение пришельцем края экрана."""
-        for alien in self.aliens.sprites():
+        for alien in self.aliens.copy():
             if alien.check_edges():
                 self.change_fleet_direction()
                 break
 
     def _change_fleet_direction(self):
         """Опускает весь флот и меняет направление флота."""
-        for alien in self.aliens.sprites():
+        for alien in self.aliens.copy():
             alien.rect.y += self.settings.fleet_drop_speed
         self.settings.fleet_direction *= -1
+
     def _update_bullets(self):
         """Обновляет позиции снарядов и уничтожает старые снаряды."""
         # Обновление позиций снарядов.
